@@ -31,7 +31,7 @@ The routing/mixing logic can create full-mesh connection between algorithm/effec
 
 The system is not limited by MIDI1.0 16-channel limitation. By using MIDI ports & channels, it can handle up to 16384 channels.
 
-Using SysEx message to remap a channel's input channel number is possible. For example, I can swap channel 1 and channel 2, and there's no any notiable difference by using regular MIDI message to control.
+Using SysEx message to remap a channel's input channel number is possible. For example, I can swap channel 1 and channel 2, and there's no any notable difference by using regular MIDI message to control.
 
 This system have to design for full MIDI 2.0 compatible.
 
