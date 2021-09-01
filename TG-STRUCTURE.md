@@ -9,7 +9,7 @@ Signal Chain
 
 A MIDI channel can only loads up to 1 MIDI program. A MIDI Program is made of :
 
-|`Synthesis Algorithm` * N  (for all poly) <-> | `Routing/Mixing` | -> `Output` (One channel) |
+|`Synthesis Algorithm` * N  (for all poly) <-> | `Routing/Mixing` -> |  `Output` (One channel) |
 | --- | ----------- | ----|
 |`Effect Processor` * N (Just for one channel) <-> | `Routing/Mixing`  |                 |
 |`Effect Processor` * N (for all poly) <-> | `Routing/Mixing`  |                 |
@@ -20,10 +20,13 @@ Currently, Synthesis algorithm can be:
 * `Ganular Wavetable Synthesis`
 * `Waveguide Synthesis`
 * `Organ Synthesis`
+* `Virtual Analog synthesis`
 
 If the program includes Effect for all poly, we call it a EPDSP (Each Polyphony DSP) program.
 
 If the program includes Effect for just one channel, we call it a FDSP (Flexible DSP) program.
+
+The routing/mixing logic can create full-mesh connection between algorithm/effect inputs/outputs, by each polyphony or down mix into channel.
 
 Control chain
 -----------------------
@@ -36,7 +39,7 @@ MTL can be customize for each program, but the ZTG framework should handle each 
 
 The bank-select and program change message must handled by the ZTG framework. When a channel receives a program change command. The MTL should be terminated by MIDI processor at once. And all channel setting must to be reset to normal for new MTL being loaded.
 
-If the user want to change their program dynamically and without be cutoff by the ZTG framework. The framework should create a new channel, remap original channel's input to dumb input and map new channel to a proper channel number. When the old channel's synthesis algorithm stops outputing valid sample, the old channel should be deconstructed at once.
+If the user want to change their program dynamically and without be cutoff by the ZTG framework. The framework should create a new channel, remap original channel's input to dumb input and map new channel to a proper channel number. When the old channel's synthesis algorithm stops outputing valid sample, the old channel should be deconstructed at once or delay for several time (can be set globally).
 
 
 FM Synthesizer Signal Inputs and Outputs
