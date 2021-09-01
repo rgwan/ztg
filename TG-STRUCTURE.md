@@ -29,11 +29,11 @@ If the program includes Effect for just one channel, we call it a FDSP (Flexible
 
 The routing/mixing logic can create full-mesh connection between algorithm/effect inputs/outputs, by each polyphony or down mix into channel.
 
-The system is not limited by MIDI1.0 16-channel limitation. By using MIDI ports & channels, it can handle up to 16384 channels.
+The system is not limited by MIDI1.0 16-channel limitation. By using MIDI ports & channels, it can handle up to 2048 (16 * 128) channels.
 
 Using SysEx message to remap a channel's input channel number is possible. For example, I can swap channel 1 and channel 2, and there's no any notable difference by using regular MIDI message to control.
 
-This system have to design for full MIDI 2.0 compatible.
+This system have to design be full MIDI 2.0 compatible.
 
 Control chain
 -----------------------
@@ -46,7 +46,7 @@ MTL can be customize for each program, but the ZTG framework should handle each 
 
 The bank-select and program change message must handled by the ZTG framework. When a channel receives a program change command. The MTL should be terminated by MIDI processor at once. And all channel setting must to be reset to normal for new MTL being loaded.
 
-If the user want to change their program dynamically and without be cutoff by the ZTG framework. The framework should create a new channel, remap original channel's input to dumb input and map new channel to a proper channel number. When the old channel's synthesis algorithm stops outputing valid sample, the old channel should be deconstructed at once or delay for several time (can be set globally).
+If the user want to change their program dynamically and without be cutoff by the ZTG framework. The framework should create a new channel, remap original channel's input to dumb input and map new channel to a proper channel number. When the old channel's synthesis algorithm stops outputing valid sample, the old channel should be deconstructed at once or delay for several time (can be set globally). The question is how to implement it, using application scale remapping or framework scale remapping?
 
 The MTL also has to register a callback function to the framework, when the framework detects processing resource hit the limit, the framework should terminate some synthesis instance and use callback function to notify MTL there's some change.
 
